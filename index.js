@@ -1,38 +1,38 @@
-const Discord = require('discord.js');
-const { Client, Intents } = require('discord.js');
-const express = require('express');
-const { Thread } = require('worker_threads');
-const app = express();
+import os
+from discord import Client, Intents
+from flask import Flask
+from threading import Thread
 
-const { Client } = require('discord.js-selfbot-v13')
+app = Flask(__name__)
 
-const client = new Client({
-    checkUpdate: false
-});
+from discord import Client
 
-client.on('ready', async () => {
-    console.log("Client is ready")
-});
+client = Client(check_update=False)
 
-app.get('/', (req, res) => {
-    res.send("Hello, I am alive!");
-});
+@client.event
+async def on_ready():
+    print("Client is ready")
 
-function run() {
-    app.listen(8080, '0.0.0.0', () => {
-        console.log('Server is running on port 8080');
-    });
-}
 
-function keepAlive() {
-    const t = new Thread(run);
-    t.run();
-}
 
-const intents = new Intents(Intents.FLAGS.GUILDS | Intents.FLAGS.GUILD_MESSAGES | Intents.FLAGS.GUILD_MEMBERS);
-const bot = new Client({ intents });
+@app.route('/')
+def home():
+    return "Hello, I am alive!"
 
-const serverAd = `
+def run():
+    app.run(host='0.0.0.0', port=8080)
+
+def keep_alive():
+    t = Thread(target=run)
+    t.start()
+
+intents = Intents.default()
+intents.guilds = True
+intents.guild_messages = True
+intents.guild_members = True
+bot = Client(intents=intents)
+
+server_ad = `
 **Jesteś doświadczonym programistą i szukasz forum, gdzie uzyskasz wsparcie i podzielisz się efektem swojej pracy? A może dopiero zaczynasz swoją przygodę z kodowaniem? Niezależnie od stopnia zaawansowania zapraszamy na nasz serwer programistyczny.**
 
 Co oferujemy:
@@ -50,49 +50,45 @@ Kogo szukamy:
 https://discord.gg/pPss9qWZ6p
 https://share.creavite.co/67646e7f0ae0e4f686a629f9.gif
 https://share.creavite.co/67646f950ae0e4f686a62a01.gif
-`;
+`
 
-const partneringUsers = {};
+partnering_users = {}
 
-client.on('ready', () => {
-    console.log(`Bot ${bot.user.tag} jest gotowy.`);
-});
+@client.event
+async def on_ready():
+    print(f'Bot {bot.user} jest gotowy.')
 
-client.on('messageCreate', async (message) => {
-    if (message.author.id === client.user.id) return;
+@client.event
+async def on_message(message):
+    if message.author.id == client.user.id:
+        return
 
-    if (message.content.toLowerCase().includes("partner") && !partneringUsers[message.author.id]) {
-        partneringUsers[message.author.id] = null;
-        await message.channel.send("🌎 Witaj! Jeśli chcesz nawiązać partnerstwo, wyślij proszę swoją reklame (maksymalnie 1 serwer).");
-    } else if (partneringUsers[message.author.id]) {
-        if (partneringUsers[message.author.id] === null) {
-            partneringUsers[message.author.id] = message.content; // Store user's ad content
-            await message.channel.send(`✅ Świetnie! Teraz wstaw naszą reklamę:\n${serverAd}`);
-            await message.channel.send("⏰ Daj znać gdy wstawisz reklamę, a wtedy my wstawimy twoją!");
-        } else if (message.content.toLowerCase().includes("wstawi")) {
-            const guild = client.guilds.cache.get('1316466087570706432');
-            if (guild && !guild.members.cache.has(message.author.id)) {
-                await message.channel.send("❕ Zanim kontynuujemy, musisz dołączyć na serwer!");
-            } else {
-                const channel = guild.channels.cache.find(channel => channel.name === "🤝partnerstwa"); // Partnerstwa channel name
-                if (channel) {
-                    const userAd = partneringUsers[message.author.id];
-                    await channel.send(userAd); // Post user's ad in the partnership channel
-                    await message.channel.send("✅ Dziękujemy za nawiązanie partnerstwa!");
-                    delete partneringUsers[message.author.id]; // Remove user from partnership list after process completion
-                }
-            }
-        }
-    }
-});
+    if "partner" in message.content.lower() and message.author.id not in partnering_users:
+        partnering_users[message.author.id] = None
+        await message.channel.send("🌎 Witaj! Jeśli chcesz nawiązać partnerstwo, wyślij proszę swoją reklame (maksymalnie 1 serwer).")
+    elif message.author.id in partnering_users:
+        if partnering_users[message.author.id] is None:
+            partnering_users[message.author.id] = message.content  # Store user's ad content
+            await message.channel.send(f"✅ Świetnie! Teraz wstaw naszą reklamę:\n{server_ad}")
+            await message.channel.send("⏰ Daj znać gdy wstawisz reklamę, a wtedy my wstawimy twoją!")
+        elif "wstawi" in message.content.lower():
+            guild = client.get_guild(1316466087570706432)
+            if guild and message.author.id not in [member.id for member in guild.members]:
+                await message.channel.send("❕ Zanim kontynuujemy, musisz dołączyć na serwer!")
+            else:
+                channel = discord.utils.get(guild.channels, name="🤝partnerstwa")  # Partnerstwa channel name
+                if channel:
+                    user_ad = partnering_users[message.author.id]
+                    await channel.send(user_ad)  # Post user's ad in the partnership channel
+                    await message.channel.send("✅ Dziękujemy za nawiązanie partnerstwa!")
+                    del partnering_users[message.author.id]  # Remove user from partnership list after process completion
 
-keepAlive();
+keep_alive()
 
-try {
-    const token = process.env.DISCORD_TOKEN;
-    client.login(token);
-} catch (e) {
-    console.error(`Error: ${e}`);
-    throw e;
-}
+try:
+    token = os.getenv('DISCORD_TOKEN')
+    client.run(token)
+except Exception as e:
+    print(f'Error: {e}')
+    raise e
 
