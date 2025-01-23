@@ -5,11 +5,7 @@ const PORT = 8080;
 
 // Konfiguracja klienta Discord
 const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,
-  ],
+    checkUpdate: false
 });
 
 // Serwer HTTP do utrzymania aktywności na Render (dla darmowego tieru)
