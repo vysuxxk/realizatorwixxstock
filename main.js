@@ -1,4 +1,4 @@
-const { Client } = require('discord.js-selfbot-v13')
+const { Client, GatewayIntentBits } = require('discord.js-selfbot-v13')
 const express = require('express');
 const app = express();
 const PORT = 8080;
