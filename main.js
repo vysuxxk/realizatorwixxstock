@@ -27,8 +27,8 @@ client.on('messageCreate', async (message) => {
   if (message.author.bot || message.author.id === client.user.id) return;
 
   // Prosta komenda: !ping
-  if (message.content === '!ping') {
-    await message.reply('🏓 Pong!').catch(console.error);
+  if (message.content === 'test') {
+    await message.reply('Test worked').catch(console.error);
   }
 
   // Dodaj więcej komend tutaj...
