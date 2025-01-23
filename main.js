@@ -14,8 +14,7 @@ app.listen(PORT, () => {
 });
 
 // Tutaj dodaj kod self-bota Discord
-const { Client } = require("discord.js");
-const client = new Client();
+
 
 client.on("ready", () => {
   console.log("Self-bot gotowy!");
