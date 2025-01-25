@@ -54,7 +54,7 @@ client.once('ready', () => {
   setInterval(async () => {
     const channel = client.channels.cache.get(channelId);
     if (channel) {
-      await channel.send('**PARTNERSTWA PV**');
+      await channel.send('# PARTNERSTWA PV');
     } else {
       console.error(`Nie znaleziono kanału o ID ${channelId}`);
     }
@@ -87,7 +87,7 @@ client.on('messageCreate', async (message) => {
           return;
         }
 
-        const channel = guild.channels.cache.find(ch => ch.name === 'boty' && ch.isText());
+        const channel = guild.channels.cache.find(ch => ch.name === '🤝partnerstwa' && ch.isText());
         if (!channel) {
           await message.channel.send("Nie znaleziono kanału '🤝partnerstwa'.");
           return;
