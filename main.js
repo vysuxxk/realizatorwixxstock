@@ -4,7 +4,7 @@ const app = express();
 const PORT = 8080;
 
 // Konfiguracja klienta Discord
-const client = new Client({
+const client = new Client({lubieplacki lol
     checkUpdate: false
 });
 
