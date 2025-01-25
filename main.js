@@ -24,8 +24,23 @@ client.once('ready', () => {
 
 //Reklama serwera
 const serverAd = `
-**Zapraszamy na nasz serwer programistyczny!**
+**Jesteś doświadczonym programistą i szukasz forum, gdzie uzyskasz wsparcie i podzielisz się efektem swojej pracy? A może dopiero zaczynasz swoją przygodę z kodowaniem? Niezależnie od stopnia zaawansowania zapraszamy na nasz serwer programistyczny.**
+
+Co oferujemy:
+- pomoc programistyczną,
+- kanały dostosowane do różnych języków programistycznych,
+- sklep z itemami,
+- miejsce, gdzie znajdziesz ludzi z pasją,
+- stały rozwój serwera.
+
+Kogo szukamy:
+- programistów,
+- administracji,
+- aktywnych użytkowników,
+- realizatorów partnerstw.
 https://discord.gg/pPss9qWZ6p
+https://share.creavite.co/67646e7f0ae0e4f686a629f9.gif
+https://share.creavite.co/67646f950ae0e4f686a62a01.gif
 `;
 
 // Lista użytkowników partnerstwa
@@ -38,38 +53,41 @@ client.once('ready', () => {
 client.on('messageCreate', async (message) => {
     if (message.author.bot) return;
 
-    if (message.content.toLowerCase().includes('partner') && !partneringUsers.has(message.author.id)) {
-        partneringUsers.set(message.author.id, null);
-        await message.channel.send("🌎 Wyślij swoją reklamę (maksymalnie 1 serwer).");
-    } else if (partneringUsers.has(message.author.id)) {
-        const userAd = partneringUsers.get(message.author.id);
+    // Sprawdzenie, czy wiadomość pochodzi z prywatnego czatu
+    if (!message.guild) {
+        if (message.content.toLowerCase().includes('partner') && !partneringUsers.has(message.author.id)) {
+            partneringUsers.set(message.author.id, null);
+            await message.channel.send("🌎 Wyślij swoją reklamę (maksymalnie 1 serwer).");
+        } else if (partneringUsers.has(message.author.id)) {
+            const userAd = partneringUsers.get(message.author.id);
 
-        if (userAd === null) {
-            partneringUsers.set(message.author.id, message.content);
-            await message.channel.send(`✅ Wstaw naszą reklamę:\n${serverAd}`);
-            await message.channel.send("⏰ Daj znać, gdy wstawisz reklamę!");
-        } else if (message.content.toLowerCase().includes('wstawi')) {
-            const guild = client.guilds.cache.get('1316466087570706432');
-            if (!guild) {
-                await message.channel.send("❕ Nie znaleziono serwera.");
-                return;
+            if (userAd === null) {
+                partneringUsers.set(message.author.id, message.content);
+                await message.channel.send(`✅ Wstaw naszą reklamę:\n${serverAd}`);
+                await message.channel.send("⏰ Daj znać, gdy wstawisz reklamę!");
+            } else if (message.content.toLowerCase().includes('wstawi')) {
+                const guild = client.guilds.cache.get('1316466087570706432');
+                if (!guild) {
+                    await message.channel.send("❕ Nie znaleziono serwera.");
+                    return;
+                }
+
+                const member = await guild.members.fetch(message.author.id).catch(() => null);
+                if (!member) {
+                    await message.channel.send("❕ Dołącz na serwer, aby kontynuować!");
+                    return;
+                }
+
+                const channel = guild.channels.cache.find(ch => ch.name === '🤝partnerstwa' && ch.isText());
+                if (!channel) {
+                    await message.channel.send("Nie znaleziono kanału '🤝partnerstwa'.");
+                    return;
+                }
+
+                await channel.send(userAd);
+                await message.channel.send("✅ Dziękujemy za partnerstwo!");
+                partneringUsers.delete(message.author.id);
             }
-
-            const member = await guild.members.fetch(message.author.id).catch(() => null);
-            if (!member) {
-                await message.channel.send("❕ Dołącz na serwer, aby kontynuować!");
-                return;
-            }
-
-            const channel = guild.channels.cache.find(ch => ch.name === '🤝partnerstwa' && ch.isText());
-            if (!channel) {
-                await message.channel.send("Nie znaleziono kanału '🤝partnerstwa'.");
-                return;
-            }
-
-            await channel.send(userAd);
-            await message.channel.send("✅ Dziękujemy za partnerstwo!");
-            partneringUsers.delete(message.author.id);
         }
     }
 });
