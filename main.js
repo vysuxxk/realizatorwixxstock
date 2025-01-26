@@ -49,22 +49,21 @@ const partneringUsers = new Map();
 client.once('ready', () => {
   console.log(`Bot ${client.user.tag} jest gotowy.`);
   // Wysyłanie wiadomości co 6 minut
-  const channelId = '1252280791946235915';
+  const channelId_partnerstwa = '1252280791946235915';
   const serverId = '1175916293816332318';
   setInterval(async () => {
     const channel = client.channels.cache.get(channelId);
     if (channel) {
       await channel.send('# PARTNERSTWA PV');
     } else {
-      console.error(`Nie znaleziono kanału o ID ${channelId}`);
+      console.error(`Nie znaleziono kanału o ID ${channelId_partnerstwa}`);
     }
   }, 6 * 60 * 1000); // 6 minut w milisekundach
 
   // reklamowanie serwera
-  const channelId = '1252290252328927353';
-  const serverId = '1175916293816332318';
+  const channelId_programming = '1252290252328927353';
   setInterval(async () => {
-    const channel = client.channels.cache.get(channelId);
+    const channel = client.channels.cache.get(channelId_programming);
     if (channel) {
       await channel.send(serverAd);
     } else {
