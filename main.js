@@ -85,7 +85,7 @@ client.on('messageCreate', async (message) => {
         partneringUsers.set(message.author.id, message.content);
         await message.channel.send(`✅ Wstaw naszą reklamę:\n${serverAd}`);
         await message.channel.send("⏰ Daj znać, gdy wstawisz reklamę!");
-      } else if (message.content.toLowerCase().includes('wstawi') || message.content.toLowerCase().includes('już') || message.content.toLowerCase().includes('gotowe')) || message.content.toLowerCase().includes('juz') {
+      } else if (message.content.toLowerCase().includes('wstawi') || message.content.toLowerCase().includes('już') || message.content.toLowerCase().includes('gotowe') || message.content.toLowerCase().includes('juz')) {
         const guild = client.guilds.cache.get('1316466087570706432');
         if (!guild) {
           await message.channel.send("❕ Nie znaleziono serwera.");
