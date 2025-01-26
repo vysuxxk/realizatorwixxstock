@@ -52,7 +52,7 @@ client.once('ready', () => {
   const channelId_partnerstwa = '1252280791946235915';
   const serverId = '1175916293816332318';
   setInterval(async () => {
-    const channel = client.channels.cache.get(channelId);
+    const channel = client.channels.cache.get(channelId_partnerstwa);
     if (channel) {
       await channel.send('# PARTNERSTWA PV');
     } else {
@@ -67,7 +67,7 @@ client.once('ready', () => {
     if (channel) {
       await channel.send(serverAd);
     } else {
-      console.error(`Nie znaleziono kanału o ID ${channelId}`);
+      console.error(`Nie znaleziono kanału o ID ${channelId_programming}`);
     }
   }, 11 * 60 * 1000); // 6 minut w milisekundach
 });
