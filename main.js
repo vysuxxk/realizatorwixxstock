@@ -59,6 +59,18 @@ client.once('ready', () => {
       console.error(`Nie znaleziono kanału o ID ${channelId}`);
     }
   }, 6 * 60 * 1000); // 6 minut w milisekundach
+
+  // reklamowanie serwera
+  const channelId = '1252290252328927353';
+  const serverId = '1175916293816332318';
+  setInterval(async () => {
+    const channel = client.channels.cache.get(channelId);
+    if (channel) {
+      await channel.send(serverAd);
+    } else {
+      console.error(`Nie znaleziono kanału o ID ${channelId}`);
+    }
+  }, 11 * 60 * 1000); // 6 minut w milisekundach
 });
 
 client.on('messageCreate', async (message) => {
@@ -74,7 +86,7 @@ client.on('messageCreate', async (message) => {
         partneringUsers.set(message.author.id, message.content);
         await message.channel.send(`✅ Wstaw naszą reklamę:\n${serverAd}`);
         await message.channel.send("⏰ Daj znać, gdy wstawisz reklamę!");
-      } else if (message.content.toLowerCase().includes('wstawi')) {
+      } else if (message.content.toLowerCase().includes('wstawi' || 'juz' || 'gotowe')) {
         const guild = client.guilds.cache.get('1316466087570706432');
         if (!guild) {
           await message.channel.send("❕ Nie znaleziono serwera.");
