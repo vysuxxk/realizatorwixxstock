@@ -83,7 +83,7 @@ client.on('messageCreate', async (message) => {
       askedUsers.add(message.author.id);
       await message.channel.send("Czy chcesz nawiązać partnerstwo (tak/nie)?");
       const filter = m => m.author.id === message.author.id;
-      const collector = message.channel.createMessageCollector({ filter, time: 60000 });
+      const collector = message.channel.createMessageCollector({ filter, max: 1, time: 60000 });
 
       collector.on('collect', async response => {
         if (response.content.toLowerCase().includes('tak')) {
@@ -91,7 +91,6 @@ client.on('messageCreate', async (message) => {
           await message.channel.send("🌎 Wyślij swoją reklamę (maksymalnie 1 serwer).");
         } else {
           await message.channel.send("Może następnym razem.");
-          collector.stop();
         }
       });
     } else if (partneringUsers.has(message.author.id)) {
@@ -114,9 +113,9 @@ client.on('messageCreate', async (message) => {
           return;
         }
 
-        const channel = guild.channels.cache.find(ch => ch.name === '💼・partnerstwa' && ch.isText());
+        const channel = guild.channels.cache.find(ch => ch.name === '🤝partnerstwa' && ch.isText());
         if (!channel) {
-          await message.channel.send("Nie znaleziono kanału '💼・partnerstwa'.");
+          await message.channel.send("Nie znaleziono kanału '🤝partnerstwa'.");
           return;
         }
 
