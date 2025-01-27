@@ -45,6 +45,7 @@ https://share.creavite.co/67646f950ae0e4f686a62a01.gif
 
 // Lista użytkowników partnerstwa
 const partneringUsers = new Map();
+const askedUsers = new Set();
 
 client.once('ready', () => {
   console.log(`Bot ${client.user.tag} jest gotowy.`);
@@ -78,7 +79,8 @@ client.on('messageCreate', async (message) => {
     if (message.content.toLowerCase().includes('partner') && !partneringUsers.has(message.author.id)) {
       partneringUsers.set(message.author.id, null);
       await message.channel.send("🌎 Wyślij swoją reklamę (maksymalnie 1 serwer).");
-    } else if (!message.content.toLowerCase().includes('partner') && !partneringUsers.has(message.author.id)) {
+    } else if (!message.content.toLowerCase().includes('partner') && !askedUsers.has(message.author.id)) {
+      askedUsers.add(message.author.id);
       await message.channel.send("Czy chcesz nawiązać partnerstwo (tak/nie)?");
       const filter = m => m.author.id === message.author.id;
       const collector = message.channel.createMessageCollector({ filter, time: 60000 });
