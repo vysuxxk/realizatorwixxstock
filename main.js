@@ -68,4 +68,73 @@ client.once('ready', () => {
     if (channel) {
       await channel.send(serverAd);
     } else {
-      console.error(`Nie znaleziono kanału o ID ${channel
+      console.error(`Nie znaleziono kanału o ID ${channelId_programming}`);
+    }
+  }, 11 * 60 * 1000); // 11 minut w milisekundach
+});
+
+client.on('messageCreate', async (message) => {
+  // Sprawdzenie, czy wiadomość pochodzi od innego użytkownika
+  if (!message.guild && !message.author.bot && message.author.id !== client.user.id) {
+    if (message.content.toLowerCase().includes('partner') && !partneringUsers.has(message.author.id)) {
+      partneringUsers.set(message.author.id, null);
+      await message.channel.send("🌎 Wyślij swoją reklamę (maksymalnie 1 serwer).");
+    } else if (!message.content.toLowerCase().includes('partner') && !askedUsers.has(message.author.id)) {
+      askedUsers.add(message.author.id);
+      await message.channel.send("Czy chcesz nawiązać partnerstwo (tak/nie)?");
+      const filter = m => m.author.id === message.author.id;
+      const collector = message.channel.createMessageCollector({ filter, max: 1, time: 60000 });
+
+      collector.on('collect', async response => {
+        if (response.content.toLowerCase().includes('tak')) {
+          partneringUsers.set(message.author.id, null);
+          await message.channel.send("🌎 Wyślij swoją reklamę (maksymalnie 1 serwer).");
+        } else {
+          await message.channel.send("Może następnym razem.");
+        }
+      });
+    } else if (partneringUsers.has(message.author.id)) {
+      const userAd = partneringUsers.get(message.author.id);
+
+      if (userAd === null) {
+        partneringUsers.set(message.author.id, message.content);
+        await message.channel.send(`✅ Wstaw naszą reklamę:\n${serverAd}`);
+        await message.channel.send("⏰ Daj znać, gdy wstawisz reklamę!");
+      } else if (message.content.toLowerCase().includes('wstawi') || message.content.toLowerCase().includes('już') || message.content.toLowerCase().includes('gotowe') || message.content.toLowerCase().includes('juz')) {
+        const guild = client.guilds.cache.get('1316466087570706432');
+        if (!guild) {
+          await message.channel.send("❕ Nie znaleziono serwera.");
+          return;
+        }
+
+        const member = await guild.members.fetch(message.author.id).catch(() => null);
+        if (!member) {
+          await message.channel.send("❕ Dołącz na serwer, aby kontynuować!");
+          return;
+        }
+
+        const channel = guild.channels.cache.find(ch => ch.name === '🤝partnerstwa' && ch.isText());
+        if (!channel) {
+          await message.channel.send("Nie znaleziono kanału '🤝partnerstwa'.");
+          return;
+        }
+
+        await channel.send(userAd);
+        await message.channel.send("✅ Dziękujemy za partnerstwo!");
+        partneringUsers.delete(message.author.id);
+      }
+    }
+  }
+});
+
+// Obsługa błędów
+client.on('error', (error) => {
+  console.error('Błąd Discorda:', error);
+});
+
+process.on('unhandledRejection', (error) => {
+  console.error('Nieobsłużony błąd:', error);
+});
+
+// Logowanie do Discorda
+client.login(process.env.DISCORD_TOKEN);
