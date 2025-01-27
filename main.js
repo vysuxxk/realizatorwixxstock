@@ -45,7 +45,7 @@ https://share.creavite.co/67646f950ae0e4f686a62a01.gif
 
 // Lista użytkowników partnerstwa
 const partneringUsers = new Map();
-const activePartnerships = new Set();
+const askedUsers = new Set();
 
 client.once('ready', () => {
   console.log(`Bot ${client.user.tag} jest gotowy.`);
@@ -76,21 +76,22 @@ client.once('ready', () => {
 client.on('messageCreate', async (message) => {
   // Sprawdzenie, czy wiadomość pochodzi od innego użytkownika
   if (!message.guild && !message.author.bot && message.author.id !== client.user.id) {
-    if (message.content.toLowerCase().includes('partner') && !partneringUsers.has(message.author.id) && !activePartnerships.has(message.author.id)) {
+    if (message.content.toLowerCase().includes('partner') && !partneringUsers.has(message.author.id)) {
       partneringUsers.set(message.author.id, null);
       await message.channel.send("🌎 Wyślij swoją reklamę (maksymalnie 1 serwer).");
-    } else if (!message.content.toLowerCase().includes('partner') && !activePartnerships.has(message.author.id)) {
+    } else if (!message.content.toLowerCase().includes('partner') && !askedUsers.has(message.author.id)) {
+      askedUsers.add(message.author.id);
       await message.channel.send("Czy chcesz nawiązać partnerstwo (tak/nie)?");
       const filter = m => m.author.id === message.author.id;
-      const collector = message.channel.createMessageCollector({ filter, max: 1, time: 60000 });
+      const collector = message.channel.createMessageCollector({ filter, time: 60000 });
 
       collector.on('collect', async response => {
         if (response.content.toLowerCase().includes('tak')) {
-          activePartnerships.add(message.author.id);
           partneringUsers.set(message.author.id, null);
           await message.channel.send("🌎 Wyślij swoją reklamę (maksymalnie 1 serwer).");
         } else {
           await message.channel.send("Może następnym razem.");
+          collector.stop();
         }
       });
     } else if (partneringUsers.has(message.author.id)) {
@@ -122,7 +123,6 @@ client.on('messageCreate', async (message) => {
         await channel.send(userAd);
         await message.channel.send("✅ Dziękujemy za partnerstwo!");
         partneringUsers.delete(message.author.id);
-        activePartnerships.delete(message.author.id);
       }
     }
   }
