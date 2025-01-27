@@ -79,7 +79,7 @@ client.on('messageCreate', async (message) => {
     if (message.content.toLowerCase().includes('partner') && !partneringUsers.has(message.author.id)) {
       partneringUsers.set(message.author.id, null);
       await message.channel.send("🌎 Wyślij swoją reklamę (maksymalnie 1 serwer).");
-    } else if (!message.content.toLowerCase().includes('partner') && !partneringUsers.has(message.author.id)) {
+    } else if (!message.content.toLowerCase().includes('partner') && !askedUsers.has(message.author.id) && !partneringUsers.has(message.author.id)) {
       await message.channel.send("Czy chcesz nawiązać partnerstwo (tak/nie)?");
       const filter = m => m.author.id === message.author.id;
       const collector = message.channel.createMessageCollector({ filter, max: 1, time: 60000 });
