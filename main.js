@@ -75,10 +75,7 @@ client.once('ready', () => {
 client.on('messageCreate', async (message) => {
   // Sprawdzenie, czy wiadomość pochodzi od innego użytkownika i czy zawiera cząstkę 'partner'
   if (!message.guild && !message.author.bot && message.author.id !== client.user.id) {
-    if (message.content.toLowerCase().includes('partner') && !partneringUsers.has(message.author.id)) {
-      partneringUsers.set(message.author.id, null);
-      await message.channel.send("🌎 Wyślij swoją reklamę (maksymalnie 1 serwer).");
-    } else if (partneringUsers.has(message.author.id)) {
+    if (partneringUsers.has(message.author.id)) {
       const userAd = partneringUsers.get(message.author.id);
 
       if (userAd === null) {
@@ -108,6 +105,9 @@ client.on('messageCreate', async (message) => {
         await message.channel.send("✅ Dziękujemy za partnerstwo!");
         partneringUsers.delete(message.author.id);
       }
+    } else if (message.content.toLowerCase().includes('partner')) {
+      partneringUsers.set(message.author.id, null);
+      await message.channel.send("🌎 Wyślij swoją reklamę (maksymalnie 1 serwer).");
     } else {
       await message.channel.send("Czy chcesz nawiązać partnerstwo (tak/nie)?");
 
