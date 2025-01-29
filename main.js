@@ -69,13 +69,16 @@ client.once('ready', () => {
     } else {
       console.error(`Nie znaleziono kanału o ID ${channelId_programming}`);
     }
-  }, 11 * 60 * 1000); // 11 minut w milisekundach
+  }, 11 * 60 * 1000); // 6 minut w milisekundach
 });
 
 client.on('messageCreate', async (message) => {
-  // Sprawdzenie, czy wiadomość pochodzi od innego użytkownika i czy zawiera cząstkę 'partner'
+  // Sprawdzenie, czy wiadomość pochodzi od innego użytkownika
   if (!message.guild && !message.author.bot && message.author.id !== client.user.id) {
-    if (partneringUsers.has(message.author.id)) {
+    if (!partneringUsers.has(message.author.id)) {
+      partneringUsers.set(message.author.id, null);
+      await message.channel.send("🌎 Wyślij swoją reklamę (maksymalnie 1 serwer).");
+    } else {
       const userAd = partneringUsers.get(message.author.id);
 
       if (userAd === null) {
@@ -104,24 +107,49 @@ client.on('messageCreate', async (message) => {
         await channel.send(userAd);
         await message.channel.send("✅ Dziękujemy za partnerstwo!");
         partneringUsers.delete(message.author.id);
-      }
-    } else if (message.content.toLowerCase().includes('partner')) {
-      partneringUsers.set(message.author.id, null);
-      await message.channel.send("🌎 Wyślij swoją reklamę (maksymalnie 1 serwer).");
-    } else {
-      await message.channel.send("Czy chcesz nawiązać partnerstwo (tak/nie)?");
+      } else {
+        await message.channel.send("Czy chcesz nawiązać partnerstwo? (tak/nie)");
 
-      const filter = response => !response.author.bot && response.author.id === message.author.id;
-      const collector = message.channel.createMessageCollector({ filter, max: 1, time: 60000 });
+        // Czekamy na odpowiedź użytkownika
+        const filter = response => response.author.id === message.author.id && !response.author.bot;
+        const collected = await message.channel.awaitMessages({ filter, max: 1, time: 30000, errors: ['time'] }).catch(() => null);
 
-      collector.on('collect', async (response) => {
-        if (response.content.toLowerCase() === 'tak') {
-          partneringUsers.set(response.author.id, null);
-          await message.channel.send("🌎 Wyślij swoją reklamę (maksymalnie 1 serwer).");
-        } else if (response.content.toLowerCase() === 'nie') {
-          await message.channel.send("Może innym razem.");
+        if (collected && collected.first()) {
+          const response = collected.first().content.toLowerCase();
+          if (response === 'tak') {
+            // Wykonanie całej funkcji messageCreate
+            if (userAd === null) {
+              partneringUsers.set(message.author.id, message.content);
+              await message.channel.send(`✅ Wstaw naszą reklamę:\n${serverAd}`);
+              await message.channel.send("⏰ Daj znać, gdy wstawisz reklamę!");
+            } else if (response.includes('wstawi') || response.includes('już') || response.includes('gotowe') || response.includes('juz')) {
+              const guild = client.guilds.cache.get('1316466087570706432');
+              if (!guild) {
+                await message.channel.send("❕ Nie znaleziono serwera.");
+                return;
+              }
+
+              const member = await guild.members.fetch(message.author.id).catch(() => null);
+              if (!member) {
+                await message.channel.send("❕ Dołącz na serwer, aby kontynuować!");
+                return;
+              }
+
+              const channel = guild.channels.cache.find(ch => ch.name === '💼・partnerstwa' && ch.isText());
+              if (!channel) {
+                await message.channel.send("Nie znaleziono kanału '💼・partnerstwa'.");
+                return;
+              }
+
+              await channel.send(userAd);
+              await message.channel.send("✅ Dziękujemy za partnerstwo!");
+              partneringUsers.delete(message.author.id);
+            }
+          } else if (response === 'nie') {
+            await message.channel.send("Może innym razem");
+          }
         }
-      });
+      }
     }
   }
 });
