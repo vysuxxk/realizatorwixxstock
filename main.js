@@ -43,8 +43,9 @@ https://share.creavite.co/67646e7f0ae0e4f686a629f9.gif
 https://share.creavite.co/67646f950ae0e4f686a62a01.gif
 `;
 
-// Lista użytkowników partnerstwa
+// Lista użytkowników partnerstwa i ich czas ostatniego partnerstwa
 const partneringUsers = new Map();
+const partnershipTimestamps = new Map();
 
 client.once('ready', () => {
   console.log(`Bot ${client.user.tag} jest gotowy.`);
@@ -75,6 +76,15 @@ client.once('ready', () => {
 client.on('messageCreate', async (message) => {
   // Sprawdzenie, czy wiadomość pochodzi od innego użytkownika
   if (!message.guild && !message.author.bot && message.author.id !== client.user.id) {
+    const now = Date.now();
+    const lastPartnership = partnershipTimestamps.get(message.author.id);
+
+    if (lastPartnership && now - lastPartnership < 7 * 24 * 60 * 60 * 1000) {
+      // Jeśli użytkownik chce nawiązać partnerstwo wcześniej niż tydzień, wyślij wiadomość
+      await message.channel.send("⏳ Musisz jeszcze poczekać, zanim będziesz mógł nawiązać kolejne partnerstwo. Spróbuj ponownie za tydzień.");
+      return;
+    }
+
     if (!partneringUsers.has(message.author.id)) {
       partneringUsers.set(message.author.id, null);
       await message.channel.send("🌎 Jeśli chcesz nawiązać partnerstwo, wyślij swoją reklamę (maksymalnie 1 serwer).");
@@ -105,9 +115,11 @@ client.on('messageCreate', async (message) => {
         }
 
         await channel.send(userAd);
-        await message.channel.send("✅ Dziękujemy za partnerstwo!");
+        await message.channel.send("✅ Dziękujemy za partnerstwo! W razie jakichkolwiek pytań prosimy o kontakt z użytkownikiem .b_r_tech. (bRtech)");
+
+        // Zaktualizuj czas ostatniego partnerstwa
+        partnershipTimestamps.set(message.author.id, now);
         partneringUsers.delete(message.author.id);
-      
       }
     }
   }
