@@ -138,6 +138,9 @@ client.on('guildMemberAdd', async (member) => {
       await dmChannel.send("✅ Dziękujemy za dołączenie! Twoja reklama została wstawiona.");
       // Usuń użytkownika z mapy partneringUsers
       partneringUsers.delete(member.id);
+      // Zaktualizuj czas ostatniego partnerstwa
+      const now = Date.now();
+      partnershipTimestamps.set(member.id, now);
     } else {
       console.error("Nie znaleziono kanału '💼・partnerstwa'.");
     }
