@@ -108,6 +108,49 @@ client.on('messageCreate', async (message) => {
         await message.channel.send("✅ Dziękujemy za partnerstwo!");
         partneringUsers.delete(message.author.id);
       }
+    } else {
+      await message.channel.send("Czy chcesz nawiązać partnerstwo? (tak/nie)");
+
+      // Czekamy na odpowiedź użytkownika
+      const filter = response => response.author.id === message.author.id && !response.author.bot;
+      const collected = await message.channel.awaitMessages({ filter, max: 1, time: 30000, errors: ['time'] }).catch(() => null);
+
+      if (collected && collected.first()) {
+        const response = collected.first().content.toLowerCase();
+        if (response === 'tak') {
+          // Wykonanie całej funkcji messageCreate
+          const userAd = partneringUsers.get(message.author.id);
+          if (userAd === null) {
+            partneringUsers.set(message.author.id, message.content);
+            await message.channel.send(`✅ Wstaw naszą reklamę:\n${serverAd}`);
+            await message.channel.send("⏰ Daj znać, gdy wstawisz reklamę!");
+          } else if (response.includes('wstawi') || response.includes('już') || response.includes('gotowe') || response.includes('juz')) {
+            const guild = client.guilds.cache.get('1316466087570706432');
+            if (!guild) {
+              await message.channel.send("❕ Nie znaleziono serwera.");
+              return;
+            }
+
+            const member = await guild.members.fetch(message.author.id).catch(() => null);
+            if (!member) {
+              await message.channel.send("❕ Dołącz na serwer, aby kontynuować!");
+              return;
+            }
+
+            const channel = guild.channels.cache.find(ch => ch.name === '💼・partnerstwa' && ch.isText());
+            if (!channel) {
+              await message.channel.send("Nie znaleziono kanału '💼・partnerstwa'.");
+              return;
+            }
+
+            await channel.send(userAd);
+            await message.channel.send("✅ Dziękujemy za partnerstwo!");
+            partneringUsers.delete(message.author.id);
+          }
+        } else if (response === 'nie') {
+          await message.channel.send("Może innym razem");
+        }
+      }
     }
   }
 });
