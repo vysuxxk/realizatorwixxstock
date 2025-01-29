@@ -38,14 +38,13 @@ Kogo szukamy:
 - administracji,
 - aktywnych użytkowników,
 - realizatorów partnerstw.
-https://discord.gg/pPss9qWZ6p
+https://discord.gg/9ZbKzvS4QE
 https://share.creavite.co/67646e7f0ae0e4f686a629f9.gif
 https://share.creavite.co/67646f950ae0e4f686a62a01.gif
 `;
 
 // Lista użytkowników partnerstwa
 const partneringUsers = new Map();
-const askedUsers = new Set();
 
 client.once('ready', () => {
   console.log(`Bot ${client.user.tag} jest gotowy.`);
@@ -79,20 +78,6 @@ client.on('messageCreate', async (message) => {
     if (message.content.toLowerCase().includes('partner') && !partneringUsers.has(message.author.id)) {
       partneringUsers.set(message.author.id, null);
       await message.channel.send("🌎 Wyślij swoją reklamę (maksymalnie 1 serwer).");
-    } else if (!message.content.toLowerCase().includes('partner') && !askedUsers.has(message.author.id)) {
-      askedUsers.add(message.author.id);
-      await message.channel.send("Czy chcesz nawiązać partnerstwo (tak/nie)?");
-      const filter = m => m.author.id === message.author.id;
-      const collector = message.channel.createMessageCollector({ filter, max: 1, time: 60000 });
-
-      collector.on('collect', async response => {
-        if (response.content.toLowerCase().includes('tak')) {
-          partneringUsers.set(message.author.id, null);
-          await message.channel.send("🌎 Wyślij swoją reklamę (maksymalnie 1 serwer).");
-        } else {
-          await message.channel.send("Może następnym razem.");
-        }
-      });
     } else if (partneringUsers.has(message.author.id)) {
       const userAd = partneringUsers.get(message.author.id);
 
@@ -113,9 +98,9 @@ client.on('messageCreate', async (message) => {
           return;
         }
 
-        const channel = guild.channels.cache.find(ch => ch.name === '💼・partnerstwa' && ch.isText());
+        const channel = guild.channels.cache.find(ch => ch.name === '🤝partnerstwa' && ch.isText());
         if (!channel) {
-          await message.channel.send("Nie znaleziono kanału '💼・partnerstwa'.");
+          await message.channel.send("Nie znaleziono kanału '🤝partnerstwa'.");
           return;
         }
 
@@ -123,6 +108,13 @@ client.on('messageCreate', async (message) => {
         await message.channel.send("✅ Dziękujemy za partnerstwo!");
         partneringUsers.delete(message.author.id);
       }
+    } else if (!message.content.toLowerCase().includes('partner') && !partneringUsers.has(message.author.id)) {
+      await message.channel.send('Czy chcesz nawiązać partnerstwo (tak/nie)?');
+    } else if (message.content.toLowerCase() === 'tak' && !partneringUsers.has(message.author.id)) {
+      partneringUsers.set(message.author.id, null);
+      await message.channel.send("🌎 Wyślij swoją reklamę (maksymalnie 1 serwer).");
+    } else if (message.content.toLowerCase() === 'nie') {
+      await message.channel.send('Może innym razem.');
     }
   }
 });
