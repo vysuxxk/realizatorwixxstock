@@ -108,7 +108,7 @@ client.on('messageCreate', async (message) => {
         await message.channel.send("✅ Dziękujemy za partnerstwo!");
         partneringUsers.delete(message.author.id);
       }
-    } else if (!message.content.toLowerCase().includes('partner') && !partneringUsers.has(message.author.id)) {
+    } else if (!message.content.toLowerCase().includes('partner') || (!message.content.toLowerCase().includes('tak') || (!message.content.toLowerCase().includes('nie') && !partneringUsers.has(message.author.id)) {
       await message.channel.send('Czy chcesz nawiązać partnerstwo (tak/nie)?');
     } else if (message.content.toLowerCase() === 'tak' && !partneringUsers.has(message.author.id)) {
       partneringUsers.set(message.author.id, null);
