@@ -114,7 +114,7 @@ client.on('messageCreate', async (message) => {
           return;
         }
 
-        await channel.send(`${userAd}\n\nReklama od: ${message.author.username}`);
+        await channel.send(`${userAd}\n\nPartnerstwo z: @ ${message.author.username}`);
         await message.channel.send("✅ Dziękujemy za partnerstwo! W razie jakichkolwiek pytań prosimy o kontakt z użytkownikiem .b_r_tech. (bRtech)");
 
         // Zaktualizuj czas ostatniego partnerstwa
