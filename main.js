@@ -63,8 +63,9 @@ client.once('ready', () => {
 
   // reklamowanie serwera
   const channelId_programming = '1252290252328927353';
+  const channelId_global = '1252285992396918835'
   setInterval(async () => {
-    const channel = client.channels.cache.get(channelId_programming);
+    const channel = client.channels.cache.get(channelId_programming, channelId_global);
     if (channel) {
       await channel.send(serverAd);
     } else {
