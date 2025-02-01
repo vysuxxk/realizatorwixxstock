@@ -1,5 +1,4 @@
 const { Client, Intents } = require('discord.js-selfbot-v13');
-const axios = require('axios');
 const express = require('express');
 const app = express();
 const PORT = 8080;
