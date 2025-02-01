@@ -2,7 +2,7 @@ const { Client, Intents } = require('discord.js-selfbot-v13');
 const express = require('express');
 const app = express();
 const PORT = 8080;
-
+const displayName = member ? member.displayName : message.author.username;
 // Konfiguracja klienta Discord
 const client = new Client({
   checkUpdate: false,
