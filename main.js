@@ -65,9 +65,11 @@ client.once('ready', () => {
   const channelId_programming = '1252290252328927353';
   const channelId_global = '1252285992396918835'
   setInterval(async () => {
-    const channel = client.channels.cache.get(channelId_programming, channelId_global);
+    const channel = client.channels.cache.get(channelId_programming);
+    const channel_global = client.channels.cache.get(channelId_global);
     if (channel) {
       await channel.send(serverAd);
+      await channel_global.send(serverAd);
     } else {
       console.error(`Nie znaleziono kanału o ID ${channelId_programming}`);
     }
