@@ -115,7 +115,7 @@ client.on('messageCreate', async (message) => {
         }
 
         const displayName = member ? member.displayName : message.author.username;
-        await channel.send(`${userAd}\n\nReklama od: ${displayName} (${member})`);
+        await channel.send(`${userAd}\n\nPartnerstwo z: ${member}`);
         await message.channel.send("✅ Dziękujemy za partnerstwo! W razie jakichkolwiek pytań prosimy o kontakt z użytkownikiem .b_r_tech. (bRtech)");
 
         // Zaktualizuj czas ostatniego partnerstwa
@@ -135,7 +135,7 @@ client.on('guildMemberAdd', async (member) => {
     const channel = member.guild.channels.cache.find(ch => ch.name === '💼・partnerstwa' && ch.isText());
     if (channel) {
       const displayName = member.displayName;
-      await channel.send(`${userAd}\n\nReklama od: ${displayName} (${member})`);
+      await channel.send(`${userAd}\n\nPartnerstwo z: ${member}`);
       const dmChannel = await member.createDM();
       await dmChannel.send("✅ Dziękujemy za dołączenie! Twoja reklama została wstawiona.");
       // Usuń użytkownika z mapy partneringUsers
