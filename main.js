@@ -2,7 +2,7 @@ const { Client, Intents } = require('discord.js-selfbot-v13');
 const express = require('express');
 const app = express();
 const PORT = 8080;
-const displayName = member.displayName;
+
 // Konfiguracja klienta Discord
 const client = new Client({
   checkUpdate: false,
@@ -114,7 +114,8 @@ client.on('messageCreate', async (message) => {
           return;
         }
 
-        await channel.send(`${userAd}\n\nPartnerstwo z: @${displayName}`);
+        const displayName = member ? member.displayName : message.author.username;
+        await channel.send(`${userAd}\n\nReklama od: ${displayName}`);
         await message.channel.send("✅ Dziękujemy za partnerstwo! W razie jakichkolwiek pytań prosimy o kontakt z użytkownikiem .b_r_tech. (bRtech)");
 
         // Zaktualizuj czas ostatniego partnerstwa
@@ -133,7 +134,8 @@ client.on('guildMemberAdd', async (member) => {
     const userAd = partneringUsers.get(member.id);
     const channel = member.guild.channels.cache.find(ch => ch.name === '💼・partnerstwa' && ch.isText());
     if (channel) {
-      await channel.send(`${userAd}\n\nPartnerstwo z: @${displayName}`);
+      const displayName = member.displayName;
+      await channel.send(`${userAd}\n\nReklama od: ${displayName}`);
       const dmChannel = await member.createDM();
       await dmChannel.send("✅ Dziękujemy za dołączenie! Twoja reklama została wstawiona.");
       // Usuń użytkownika z mapy partneringUsers
