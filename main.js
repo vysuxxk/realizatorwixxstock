@@ -70,7 +70,7 @@ client.once('ready', () => {
     } else {
       console.error(`Nie znaleziono kanału o ID ${channelId_programming}`);
     }
-  }, 11 * 60 * 1000); // 6 minut w milisekundach
+  }, 11 * 60 * 1000); // 11 minut w milisekundach
 });
 
 client.on('messageCreate', async (message) => {
@@ -114,7 +114,7 @@ client.on('messageCreate', async (message) => {
           return;
         }
 
-        await channel.send(userAd);
+        await channel.send(`${userAd}\n\nReklama od: ${message.author.username}`);
         await message.channel.send("✅ Dziękujemy za partnerstwo! W razie jakichkolwiek pytań prosimy o kontakt z użytkownikiem .b_r_tech. (bRtech)");
 
         // Zaktualizuj czas ostatniego partnerstwa
@@ -133,7 +133,7 @@ client.on('guildMemberAdd', async (member) => {
     const userAd = partneringUsers.get(member.id);
     const channel = member.guild.channels.cache.find(ch => ch.name === '💼・partnerstwa' && ch.isText());
     if (channel) {
-      await channel.send(userAd);
+      await channel.send(`${userAd}\n\nPartnerstwo z: @ ${member.user.username}`);
       const dmChannel = await member.createDM();
       await dmChannel.send("✅ Dziękujemy za dołączenie! Twoja reklama została wstawiona.");
       // Usuń użytkownika z mapy partneringUsers
