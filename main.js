@@ -99,6 +99,16 @@ client.on('messageCreate', async (message) => {
         await message.channel.send(`✅ Wstaw naszą reklamę:\n${serverAd}`);
         await message.channel.send("⏰ Daj znać, gdy wstawisz reklamę!");
       } else if (message.content.toLowerCase().includes('wstawi') || message.content.toLowerCase().includes('już') || message.content.toLowerCase().includes('gotowe') || message.content.toLowerCase().includes('juz')) {
+        // Dodajemy pytanie o dołączenie na serwer
+        await message.channel.send("Czy wymagane jest dołączenie na twój serwer?");
+        const filter = m => m.author.id === message.author.id;
+        const reply = await message.channel.awaitMessages({ filter, max: 1, time: 60000, errors: ['time'] }).catch(() => null);
+
+        if (reply && !reply.first().content.toLowerCase().includes('nie')) {
+          const notificationUser = await client.users.fetch('782647700403257375');
+          await notificationUser.send(`Wymagane dołączenie na serwer:\n${userAd}`);
+        }
+
         const guild = client.guilds.cache.get('1316466087570706432');
         if (!guild) {
           await message.channel.send("❕ Nie znaleziono serwera.");
