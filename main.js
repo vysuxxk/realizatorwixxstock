@@ -99,8 +99,28 @@ client.on('messageCreate', async (message) => {
         await message.channel.send(`✅ Wstaw naszą reklamę:\n${serverAd}`);
         await message.channel.send("⏰ Daj znać, gdy wstawisz reklamę!");
       } else if (message.content.toLowerCase().includes('wstawi') || message.content.toLowerCase().includes('już') || message.content.toLowerCase().includes('gotowe') || message.content.toLowerCase().includes('juz')) {
+        const guild = client.guilds.cache.get('1316466087570706432');
+        if (!guild) {
+          await message.channel.send("❕ Nie znaleziono serwera.");
+          return;
+        }
+
+        const member = await guild.members.fetch(message.author.id).catch(() => null);
+        if (!member) {
+          await message.channel.send("❕ Dołącz na serwer, aby kontynuować!");
+          return;
+        }
+
+        const channel = guild.channels.cache.find(ch => ch.name === '💼・partnerstwa' && ch.isText());
+        if (!channel) {
+          await message.channel.send("Nie znaleziono kanału '💼・partnerstwa'.");
+          return;
+        }
+
+        const displayName = member ? member.displayName : message.author.username;
+        await channel.send(`${userAd}\n\nPartnerstwo z: ${member}`);
         await message.channel.send("✅ Dziękujemy za partnerstwo! W razie jakichkolwiek pytań prosimy o kontakt z użytkownikiem .b_r_tech. (bRtech)");
-        // Zaktualizuj czas ostatniego partnerstwa
+
         partnershipTimestamps.set(message.author.id, now);
         partneringUsers.delete(message.author.id);
       }
