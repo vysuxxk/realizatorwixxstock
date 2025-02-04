@@ -71,10 +71,10 @@ client.once('ready', () => {
   setInterval(async () => {
     const channel = client.channels.cache.get(channelId_programming);
     const channel_global = client.channels.cache.get(channelId_global);
-    const zimoweall1 = '1252286465635782657';
-    const zimowethematic1 = '1252289621274923152';
-    const zimowetech1 = '1252290035953438794';
-    const zimowe6h1 = '1252301768394543207';
+    const zimoweall1 = client.channels.cache.get(zimoweall);
+    const zimowethematic1 = client.channels.cache.get(zimowethematic);
+    const zimowetech1 = client.channels.cache.get(zimowetech);
+    const zimowe6h1 = client.channels.cache.get(zimowe6h);
     if (channel) {
       await channel.send(serverAd);
       await channel_global.send(serverAd);
