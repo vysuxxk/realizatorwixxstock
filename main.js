@@ -63,13 +63,24 @@ client.once('ready', () => {
 
   // reklamowanie serwera
   const channelId_programming = '1252290252328927353';
-  const channelId_global = '1252285992396918835'
+  const channelId_global = '1252285992396918835';
+  const zimoweall = '1252286465635782657';
+  const zimowethematic = '1252289621274923152';
+  const zimowetech = '1252290035953438794';
+  const zimowe6h = '1252301768394543207';
   setInterval(async () => {
     const channel = client.channels.cache.get(channelId_programming);
     const channel_global = client.channels.cache.get(channelId_global);
+    const zimoweall1 = '1252286465635782657';
+    const zimowethematic1 = '1252289621274923152';
+    const zimowetech1 = '1252290035953438794';
+    const zimowe6h1 = '1252301768394543207';
     if (channel) {
       await channel.send(serverAd);
       await channel_global.send(serverAd);
+      await zimoweall1.send(serverAd);
+      await zimowethematic1.send(serverAd);
+      await zimowetech1.send(serverAd);
     } else {
       console.error(`Nie znaleziono kanału o ID ${channelId_programming}`);
     }
