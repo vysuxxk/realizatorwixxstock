@@ -24,23 +24,41 @@ client.once('ready', () => {
 
 // Reklama serwera
 const serverAd = `
-**Jesteś doświadczonym programistą i szukasz forum, gdzie uzyskasz wsparcie i podzielisz się efektem swojej pracy? A może dopiero zaczynasz swoją przygodę z kodowaniem? Niezależnie od stopnia zaawansowania zapraszamy na nasz serwer programistyczny.**
+# 🚀 Witaj w Coding Zone! 🚀
+**🔥 Czy jesteś gotowy, by dołączyć do najgorętszej społeczności programistów na Discordzie? 🔥**
 
-Co oferujemy:
-- pomoc programistyczną,
-- kanały dostosowane do różnych języków programistycznych,
-- sklep z itemami,
-- miejsce, gdzie znajdziesz ludzi z pasją,
-- stały rozwój serwera.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Kogo szukamy:
-- programistów,
-- administracji,
-- aktywnych użytkowników,
-- realizatorów partnerstw.
-https://discord.gg/UyFn7Dng29
-https://share.creavite.co/67646e7f0ae0e4f686a629f9.gif
-https://share.creavite.co/67646f950ae0e4f686a62a01.gif
+⟨👨‍💻⟩ **Coding Zone** to miejsce, gdzie pasjonaci kodowania spotykają się, by:
+  
+>      ⟨💡⟩ **Dzielić się swoimi projektami** i osiągnięciami,
+>  ⟨🤝⟩ **Pomagać sobie nawzajem** w rozwiązywaniu problemów,
+>  ⟨🎉⟩ **Relaksować się** na kanałach for fun – nawet najlepszy kod czasem potrzebuje przerwy!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⟨💬⟩ **Masz pytanie?** Nasi eksperci są zawsze gotowi, by pomóc!
+⟨🎮⟩ **Chcesz odpocząć?** Zagraj z nami w gry, porozmawiaj na luźne tematy lub po prostu zrelaksuj się w towarzystwie ludzi, którzy rozumieją Twoją pasję.
+
+────────────────────────────────────────────────────────────────────────────────────
+
+# 🌟 DLACZEGO CODING ZONE? 🌟
+
+>      ⟨✅⟩ **Aktywna społeczność** – zawsze ktoś jest online!
+>      ⟨✅⟩ **Kanały tematyczne** – od ⟨🐍⟩ Python po ⟨🟨⟩ JavaScript, od ⟨🤖⟩ AI po ⟨🌐⟩ web dev!
+>      ⟨✅⟩ **Kanały rozrywkowe** – ⟨📸⟩ memy, ⟨🎲⟩ gry, ⟨🎵⟩ muzyka i wiele więcej!
+>      ⟨✅⟩ **Wydarzenia i konkursy** – bo kodowanie to nie tylko praca, ale też zabawa!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# 🔗 DOŁĄCZ JUŻ TERAZ! 🔗
+👉 [KLIKNIJ TUTAJ, BY DOŁĄCZYĆ!](https://discord.gg/erDFWnB5pB) 👈
+Gif: https://cdn.discordapp.com/attachments/1348199237673947167/1349117172340756530/coding_zone_gif.gif?ex=67d1eec7&is=67d09d47&hm=5c2adf45485c262dd70cfa09b2f4b6e8171b97791adb52c24e4defe9ccb8792c&
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+**🎉 CZEKAMY WŁAŚNIE NA CIEBIE! 🎉**
+# 🔥 Let’s code, share, and have fun together! 🔥
 `;
 
 // Lista użytkowników partnerstwa i ich czas ostatniego partnerstwa
@@ -50,8 +68,8 @@ const partnershipTimestamps = new Map();
 client.once('ready', () => {
   console.log(`Bot ${client.user.tag} jest gotowy.`);
   // Wysyłanie wiadomości co 6 minut
-  const channelId_partnerstwa = '1252280791946235915';
-  const serverId = '1175916293816332318';
+  const channelId_partnerstwa = '1346609247869337701';
+  const serverId = '1348273862365941780';
   setInterval(async () => {
     const channel = client.channels.cache.get(channelId_partnerstwa);
     if (channel) {
@@ -62,12 +80,12 @@ client.once('ready', () => {
   }, 6 * 60 * 1000); // 6 minut w milisekundach
 
   // reklamowanie serwera
-  const channelId_programming = '1252290252328927353';
-  const channelId_global = '1252285992396918835';
-  const zimoweall = '1252286465635782657';
-  const zimowethematic = '1252289621274923152';
-  const zimowetech = '1252290035953438794';
-  const zimowe6h = '1252301768394543207';
+  const channelId_programming = '1346609292425429194';
+  const channelId_global = '1348329636056268911';
+  const zimoweall = '1346609268375158834';
+  const zimowethematic = '1346609283932094529';
+  const zimowetech = '1346609290332602420';
+  const zimowe6h = '1346609312042324060';
   setInterval(async () => {
     const channel = client.channels.cache.get(channelId_programming);
     const channel_global = client.channels.cache.get(channelId_global);
@@ -133,9 +151,9 @@ client.on('messageCreate', async (message) => {
           return;
         }
 
-        const channel = guild.channels.cache.find(ch => ch.name === '💼・partnerstwa' && ch.isText());
+        const channel = guild.channels.cache.find(ch => ch.name === '⟨💼⟩᲼partnerstwa' && ch.isText());
         if (!channel) {
-          await message.channel.send("Nie znaleziono kanału '💼・partnerstwa'.");
+          await message.channel.send("Nie znaleziono kanału '⟨💼⟩᲼partnerstwa'.");
           return;
         }
 
@@ -156,7 +174,7 @@ client.on('guildMemberAdd', async (member) => {
   if (partneringUsers.has(member.id)) {
     // Wyślij wiadomość powitalną lub dalsze instrukcje do użytkownika
     const userAd = partneringUsers.get(member.id);
-    const channel = member.guild.channels.cache.find(ch => ch.name === '💼・partnerstwa' && ch.isText());
+    const channel = member.guild.channels.cache.find(ch => ch.name === '⟨💼⟩᲼partnerstwa' && ch.isText());
     if (channel) {
       const displayName = member.displayName;
       await channel.send(`${userAd}\n\nPartnerstwo z: ${member}`);
