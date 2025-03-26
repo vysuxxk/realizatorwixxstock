@@ -109,18 +109,15 @@ client.once('ready', () => {
 client.on('guildMemberAdd', (member) => {
     const welcomeChannel = member.guild.channels.cache.find(channel => channel.name === "〈🛬〉᲼przyloty");
     if (welcomeChannel) {
-        const memberCount = member.guild.memberCount;
-
-        // Tworzenie embeda z wymaganymi polami
         const embed = new MessageEmbed()
-            .setColor('#00FF00') // Kolor embeda
-            .setTitle('Witamy na serwerze! 🎉') // Tytuł embeda
-            .setDescription(`Cześć, ${member.user.username}! Jesteś naszym **${memberCount}** członkiem.`) // Główna treść
-            .setTimestamp(); // Dodanie czasu
+            .setColor('#00FF00') // Prosty kolor
+            .setTitle('Witamy!') // Podstawowy tytuł
+            .setDescription('To jest testowy opis.'); // Prosty opis
 
-        // Wysłanie embeda na kanał
+        // Wysyłanie wiadomości
         welcomeChannel.send({ embeds: [embed] })
-            .catch(err => console.error("Błąd przy wysyłaniu wiadomości:", err));
+            .then(() => console.log('Embed wysłany!'))
+            .catch(err => console.error('Błąd przy wysyłaniu embeda:', err));
     }
 });
 
