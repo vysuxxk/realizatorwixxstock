@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js-selfbot-v13');
 const express = require('express');
 const app = express();
 const PORT = 8080;
-
+const Discord = require('discord.js-selfbot-v13');
 // Konfiguracja klienta Discord
 const client = new Client({
   checkUpdate: false,
