@@ -107,16 +107,29 @@ client.once('ready', () => {
 });
 
 client.on('guildMemberAdd', (member) => {
+    // Znajdź kanał powitalny na podstawie nazwy
     const welcomeChannel = member.guild.channels.cache.find(channel => channel.name === "〈🛬〉᲼przyloty");
     if (welcomeChannel) {
-        const embed = new MessageEmbed()
-            .setDescription('Witamy na serwerze!'); // Najprostszy możliwy embed
+        // Konstrukcja embeda w formie JSON
+        const embed = {
+            description: `Witamy na serwerze, ${member.user.username}!`,
+            color: 0x00ff00, // Kolor zielony w formacie HEX
+            timestamp: new Date(), // Dodaje znacznik czasu
+            footer: {
+                text: 'Cieszymy się, że jesteś z nami!',
+                icon_url: member.user.displayAvatarURL() // Awatar użytkownika jako ikona w stopce
+            }
+        };
 
+        // Wysyłanie embeda
         welcomeChannel.send({ embeds: [embed] })
             .then(() => console.log('Embed wysłany!'))
             .catch(err => console.error('Błąd przy wysyłaniu embeda:', err));
+    } else {
+        console.error('Nie znaleziono kanału powitalnego!');
     }
 });
+
 
 client.on('messageCreate', async (message) => {
   // Sprawdzenie, czy wiadomość pochodzi od innego użytkownika
