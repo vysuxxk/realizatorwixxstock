@@ -107,7 +107,7 @@ client.once('ready', () => {
 });
 
 client.on('guildMemberAdd', (member) => {
-    const welcomeChannel = member.guild.channels.cache.find(channel => channel.name === "nazwa-kanalu");
+    const welcomeChannel = member.guild.channels.cache.find(channel => channel.name === "〈🛬〉᲼przyloty");
     if (welcomeChannel) {
         welcomeChannel.send('Witaj! Jesteś naszym nowym członkiem.');
     }
