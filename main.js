@@ -107,21 +107,9 @@ client.once('ready', () => {
 });
 
 client.on('guildMemberAdd', (member) => {
-    const welcomeChannel = member.guild.channels.cache.find(channel => channel.name === "〈🛬〉᲼przyloty");
+    const welcomeChannel = member.guild.channels.cache.find(channel => channel.name === "nazwa-kanalu");
     if (welcomeChannel) {
-        const embed = new MessageEmbed()
-            .setColor('#00FF00') // Prosty kolor
-            .setTitle('Witamy!') // Podstawowy tytuł
-            .setUrl()
-            .setDescription('To jest testowy opis.') // Prosty opis
-            .addFields()
-            .setImage()
-            .setFooter();
-
-        // Wysyłanie wiadomości
-        welcomeChannel.send({ embeds: [embed] })
-            .then(() => console.log('Embed wysłany!'))
-            .catch(err => console.error('Błąd przy wysyłaniu embeda:', err));
+        welcomeChannel.send('Witaj! Jesteś naszym nowym członkiem.');
     }
 });
 
