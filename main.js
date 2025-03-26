@@ -124,7 +124,7 @@ client.on('guildMemberAdd', (member) => {
 
         // Wysłanie wiadomości powitalnej z embedem
         welcomeChannel.send(embed);
-});
+};
 
 client.on('messageCreate', async (message) => {
   // Sprawdzenie, czy wiadomość pochodzi od innego użytkownika
