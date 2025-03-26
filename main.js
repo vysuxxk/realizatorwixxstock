@@ -106,25 +106,22 @@ client.once('ready', () => {
   }, 11 * 60 * 1000); // 11 minut w milisekundach
 });
 
-client.on('guildMemberAdd', (member) => {
-    // Znajdź kanał powitalny
-    const welcomeChannel = member.guild.channels.cache.find(channel => channel.name === "〈🛬〉᲼przyloty");
-    if (welcomeChannel) {
-        // Tworzenie embeda
-        const embed = new MessageEmbed()
-            .setColor('#00FF00') // Kolor paska bocznego
-            .setTitle('Witamy na serwerze! 🎉') // Tytuł wiadomości
-            .setDescription(`Cześć, ${member.user.username}! Jesteś naszym ${member.guild.memberCount}-tym członkiem.`) // Treść wiadomości
-            .setThumbnail(member.user.displayAvatarURL()) // Miniaturka z awatarem użytkownika
-            .setFooter({
-                text: 'Miłego dnia!', 
-                iconURL: client.user.displayAvatarURL() // Opcjonalna ikona w stopce
-            })
-            .setTimestamp(); // Dodanie czasu
+client.on('guildMemberAdd', member => {
+    // Kanał, do którego chcesz wysłać wiadomość
+    const channelId = '1348309774189592596'; // Zamień na ID kanału, gdzie ma być wysyłana wiadomość
+    const channel = member.guild.channels.cache.get(channelId);
 
-        // Wysłanie wiadomości powitalnej z embedem
-        welcomeChannel.send(embed);
-};
+    if (channel) {
+        // Utwórz embed
+        const embed = new Discord.MessageEmbed()
+            .setTitle('Witaj na serwerze!')
+            .setDescription(`Cześć, ${member.user.username}! Miło Cię widzieć.`)
+            .setColor('#00FF00'); // Możesz zmienić kolor według uznania
+
+        channel.send({ embeds: [embed] });
+    }
+});
+
 
 client.on('messageCreate', async (message) => {
   // Sprawdzenie, czy wiadomość pochodzi od innego użytkownika
