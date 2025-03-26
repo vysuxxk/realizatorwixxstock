@@ -105,6 +105,14 @@ client.once('ready', () => {
   }, 11 * 60 * 1000); // 11 minut w milisekundach
 });
 
+client.on('guildMemberAdd', member => {
+    const welcomeChannel = member.guild.channels.cache.find(channel => channel.name === "〈🛬〉᲼przyloty");
+    if (welcomeChannel) {
+        const memberCount = member.guild.memberCount;
+        welcomeChannel.send(`Witaj, ${member.user.username}! Jesteś naszym ${memberCount} członkiem.`);
+    }
+});
+
 client.on('messageCreate', async (message) => {
   // Sprawdzenie, czy wiadomość pochodzi od innego użytkownika
   if (!message.guild && !message.author.bot && message.author.id !== client.user.id) {
