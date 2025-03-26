@@ -106,10 +106,17 @@ client.once('ready', () => {
   }, 11 * 60 * 1000); // 11 minut w milisekundach
 });
 
+const { MessageEmbed } = require('discord.js-selfbot-v13');
+
 client.on('guildMemberAdd', (member) => {
     const welcomeChannel = member.guild.channels.cache.find(channel => channel.name === "〈🛬〉᲼przyloty");
     if (welcomeChannel) {
-        welcomeChannel.send('Witaj! Jesteś naszym nowym członkiem.');
+        const embed = new MessageEmbed()
+            .setDescription('Witamy na serwerze!'); // Najprostszy możliwy embed
+
+        welcomeChannel.send({ embeds: [embed] })
+            .then(() => console.log('Embed wysłany!'))
+            .catch(err => console.error('Błąd przy wysyłaniu embeda:', err));
     }
 });
 
