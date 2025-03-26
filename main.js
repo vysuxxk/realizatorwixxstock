@@ -111,17 +111,16 @@ client.on('guildMemberAdd', (member) => {
     if (welcomeChannel) {
         const memberCount = member.guild.memberCount;
 
-        // Tworzenie embeda
+        // Tworzenie embeda z wymaganymi polami
         const embed = new MessageEmbed()
-            .setColor('#00FF00') // Kolor paska bocznego
-            .setTitle('Witamy na serwerze! 🎉')
-            .setDescription(`Cześć, ${member.user.username}! Jesteś naszym **${memberCount}** członkiem.`)
-            .setThumbnail(member.user.displayAvatarURL())
-            .setFooter({ text: 'Miłego dnia!', iconURL: member.user.displayAvatarURL() })
-            .setTimestamp();
+            .setColor('#00FF00') // Kolor embeda
+            .setTitle('Witamy na serwerze! 🎉') // Tytuł embeda
+            .setDescription(`Cześć, ${member.user.username}! Jesteś naszym **${memberCount}** członkiem.`) // Główna treść
+            .setTimestamp(); // Dodanie czasu
 
-        // Wysyłanie embeda
-        welcomeChannel.send({ embeds: [embed] });
+        // Wysłanie embeda na kanał
+        welcomeChannel.send({ embeds: [embed] })
+            .catch(err => console.error("Błąd przy wysyłaniu wiadomości:", err));
     }
 });
 
