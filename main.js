@@ -1,4 +1,5 @@
 const { Client, Intents } = require('discord.js-selfbot-v13');
+const { MessageEmbed } = require('discord.js-selfbot-v13');
 const express = require('express');
 const app = express();
 const PORT = 8080;
@@ -110,6 +111,25 @@ client.on('guildMemberAdd', member => {
     if (welcomeChannel) {
         const memberCount = member.guild.memberCount;
         welcomeChannel.send(`Witaj, ${member.user.username}! Jesteś naszym ${memberCount} członkiem.`);
+    }
+});
+
+client.on('guildMemberAdd', (member) => {
+    const welcomeChannel = member.guild.channels.cache.find(channel => channel.name === "nazwa-kanalu");
+    if (welcomeChannel) {
+        const memberCount = member.guild.memberCount;
+
+        // Tworzenie embeda
+        const embed = new MessageEmbed()
+            .setColor('#00FF00') // Kolor paska bocznego
+            .setTitle('Witamy na serwerze! 🎉')
+            .setDescription(`Cześć, ${member.user.username}! Jesteś naszym **${memberCount}** członkiem.`)
+            .setThumbnail(member.user.displayAvatarURL())
+            .setFooter({ text: 'Miłego dnia!', iconURL: member.user.displayAvatarURL() })
+            .setTimestamp();
+
+        // Wysyłanie embeda
+        welcomeChannel.send({ embeds: [embed] });
     }
 });
 
