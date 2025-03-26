@@ -112,7 +112,11 @@ client.on('guildMemberAdd', (member) => {
         const embed = new MessageEmbed()
             .setColor('#00FF00') // Prosty kolor
             .setTitle('Witamy!') // Podstawowy tytuł
-            .setDescription('To jest testowy opis.'); // Prosty opis
+            .setUrl()
+            .setDescription('To jest testowy opis.') // Prosty opis
+            .addFields()
+            .setImage()
+            .setFooter();
 
         // Wysyłanie wiadomości
         welcomeChannel.send({ embeds: [embed] })
