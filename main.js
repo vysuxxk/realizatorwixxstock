@@ -123,12 +123,7 @@ client.on('guildMemberAdd', (member) => {
             .setTimestamp(); // Dodanie czasu
 
         // Wysłanie wiadomości powitalnej z embedem
-        welcomeChannel.send({ embeds: [embed] })
-            .then(() => console.log('Embed powitalny wysłany!'))
-            .catch(err => console.error('Błąd przy wysyłaniu wiadomości:', err));
-    } else {
-        console.error('Nie znaleziono kanału powitalnego!');
-    }
+        welcomeChannel.send(embed);
 });
 
 client.on('messageCreate', async (message) => {
