@@ -107,29 +107,29 @@ client.once('ready', () => {
 });
 
 client.on('guildMemberAdd', (member) => {
-    // Znajdź kanał powitalny na podstawie nazwy
+    // Znajdź kanał powitalny
     const welcomeChannel = member.guild.channels.cache.find(channel => channel.name === "〈🛬〉᲼przyloty");
     if (welcomeChannel) {
-        // Konstrukcja embeda w formie JSON
-        const embed = {
-            description: `Witamy na serwerze, ${member.user.username}!`,
-            color: 0x00ff00, // Kolor zielony w formacie HEX
-            timestamp: new Date(), // Dodaje znacznik czasu
-            footer: {
-                text: 'Cieszymy się, że jesteś z nami!',
-                icon_url: member.user.displayAvatarURL() // Awatar użytkownika jako ikona w stopce
-            }
-        };
+        // Tworzenie embeda
+        const embed = new MessageEmbed()
+            .setColor('#00FF00') // Kolor paska bocznego
+            .setTitle('Witamy na serwerze! 🎉') // Tytuł wiadomości
+            .setDescription(`Cześć, ${member.user.username}! Jesteś naszym ${member.guild.memberCount}-tym członkiem.`) // Treść wiadomości
+            .setThumbnail(member.user.displayAvatarURL()) // Miniaturka z awatarem użytkownika
+            .setFooter({
+                text: 'Miłego dnia!', 
+                iconURL: client.user.displayAvatarURL() // Opcjonalna ikona w stopce
+            })
+            .setTimestamp(); // Dodanie czasu
 
-        // Wysyłanie embeda
+        // Wysłanie wiadomości powitalnej z embedem
         welcomeChannel.send({ embeds: [embed] })
-            .then(() => console.log('Embed wysłany!'))
-            .catch(err => console.error('Błąd przy wysyłaniu embeda:', err));
+            .then(() => console.log('Embed powitalny wysłany!'))
+            .catch(err => console.error('Błąd przy wysyłaniu wiadomości:', err));
     } else {
         console.error('Nie znaleziono kanału powitalnego!');
     }
 });
-
 
 client.on('messageCreate', async (message) => {
   // Sprawdzenie, czy wiadomość pochodzi od innego użytkownika
