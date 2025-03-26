@@ -106,8 +106,6 @@ client.once('ready', () => {
   }, 11 * 60 * 1000); // 11 minut w milisekundach
 });
 
-const { MessageEmbed } = require('discord.js-selfbot-v13');
-
 client.on('guildMemberAdd', (member) => {
     const welcomeChannel = member.guild.channels.cache.find(channel => channel.name === "〈🛬〉᲼przyloty");
     if (welcomeChannel) {
