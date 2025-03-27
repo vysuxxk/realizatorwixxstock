@@ -106,23 +106,29 @@ client.once('ready', () => {
   }, 11 * 60 * 1000); // 11 minut w milisekundach
 });
 
-client.on('guildMemberAdd', async member => {
-    const channelId = '1348309774189592596';
-    const channel = member.guild.channels.cache.get(channelId);
+client.on("guildMemberAdd", async (member) => {
+  const channelId = "1348309774189592596";
+  const channel = member.guild.channels.cache.get(channelId);
 
-    if (channel) {
-        const embed = new Discord.MessageEmbed()
-            .setTitle('Witaj!')
-            .setDescription(`Cześć, ${member.user.username}!`)
-            .setColor(0x00FF00); // Zmiana formatu koloru na hex number
+  if (channel) {
+    try {
+      // Tworzymy embed z dodatkowymi polami
+      const embed = new MessageEmbed()
+        .setTitle("🚀 Witaj na serwerze!")
+        .setDescription(`Cześć ${member.user.username}!`)
+        .setColor("#00FF00")
+        .setFooter("Serwer Coding Zone") // Wymagane pole w niektórych wersjach
+        .setTimestamp();
 
-        try {
-            // Dodajemy pustą treść jako zabezpieczenie
-            await channel.send({ content: ' ', embeds: [embed] });
-        } catch (error) {
-            console.error('Błąd wysyłania wiadomości:', error);
-        }
+      // Wysyłamy z bezpieczną spacją w treści
+      await channel.send({
+        content: " ", // Wymagane przez niektóre API Discorda
+        embeds: [embed]
+      });
+    } catch (error) {
+      console.error("Błąd embeda:", error);
     }
+  }
 });
 
 
