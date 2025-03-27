@@ -106,18 +106,19 @@ client.once('ready', () => {
   }, 11 * 60 * 1000); // 11 minut w milisekundach
 });
 
-client.on('guildMemberAdd', async member => { // Dodaj "async" tutaj
-    const channelId = '1348309774189592596'; // Zamień na ID kanału
+client.on('guildMemberAdd', async member => {
+    const channelId = '1348309774189592596';
     const channel = member.guild.channels.cache.get(channelId);
 
     if (channel) {
         const embed = new Discord.MessageEmbed()
             .setTitle('Witaj!')
             .setDescription(`Cześć, ${member.user.username}!`)
-            .setColor('#00FF00');
+            .setColor(0x00FF00); // Zmiana formatu koloru na hex number
 
         try {
-            await channel.send({ embeds: [embed] }); // Użycie "await" wymaga async
+            // Dodajemy pustą treść jako zabezpieczenie
+            await channel.send({ content: ' ', embeds: [embed] });
         } catch (error) {
             console.error('Błąd wysyłania wiadomości:', error);
         }
