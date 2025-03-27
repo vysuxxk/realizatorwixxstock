@@ -106,30 +106,7 @@ client.once('ready', () => {
   }, 11 * 60 * 1000); // 11 minut w milisekundach
 });
 
-client.on("guildMemberAdd", async (member) => {
-  const channelId = "1348309774189592596";
-  const channel = member.guild.channels.cache.get(channelId);
 
-  if (channel) {
-    try {
-      // Tworzymy embed z dodatkowymi polami
-      const embed = new MessageEmbed()
-        .setTitle("🚀 Witaj na serwerze!")
-        .setDescription(`Cześć ${member.user.username}!`)
-        .setColor("#00FF00")
-        .setFooter("Serwer Coding Zone") // Wymagane pole w niektórych wersjach
-        .setTimestamp();
-
-      // Wysyłamy z bezpieczną spacją w treści
-      await channel.send({
-        content: " ", // Wymagane przez niektóre API Discorda
-        embeds: [embed]
-      });
-    } catch (error) {
-      console.error("Błąd embeda:", error);
-    }
-  }
-});
 
 
 client.on('messageCreate', async (message) => {
