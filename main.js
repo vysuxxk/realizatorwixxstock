@@ -60,7 +60,7 @@ client.once('ready', () => {
   setInterval(async () => {
     const channel = client.channels.cache.get(channelId_partnerstwa);
     if (channel) {
-      await channel.send('# PARTNERSTWA PV');
+      await channel.send('# PARTNERSTWA PV - Serwer 800osób Fortnite Stock');
     } else {
       console.error(`Nie znaleziono kanału o ID ${channelId_partnerstwa}`);
     }
