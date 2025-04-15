@@ -149,7 +149,7 @@ client.on('messageCreate', async (message) => {
 
         const displayName = member ? member.displayName : message.author.username;
         await channel.send(`${userAd}\n\nPartnerstwo z: ${member}`);
-        await message.channel.send("✅ Dziękujemy za partnerstwo! W razie jakichkolwiek pytań prosimy o kontakt z użytkownikiem .b_r_tech. (bRtech)");
+        await message.channel.send("✅ Dziękujemy za partnerstwo! W razie jakichkolwiek pytań prosimy o kontakt z użytkownikiem xxvysuxx");
 
         partnershipTimestamps.set(message.author.id, now);
         partneringUsers.delete(message.author.id);
