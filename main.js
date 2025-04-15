@@ -176,7 +176,7 @@ client.on('guildMemberAdd', async (member) => {
       const now = Date.now();
       partnershipTimestamps.set(member.id, now);
     } else {
-      console.error("Nie znaleziono kanału '💼・partnerstwa'.");
+      console.error("Nie znaleziono kanału 'partnerstwa'.");
     }
   }
 });
