@@ -55,8 +55,8 @@ const partnershipTimestamps = new Map();
 client.once('ready', () => {
   console.log(`Bot ${client.user.tag} jest gotowy.`);
   // Wysyłanie wiadomości co 6 minut
-  const channelId_partnerstwa = '1346609247869337701';
-  const serverId = '1348273862365941780';
+  const channelId_partnerstwa = '1330661653787705354';
+  const serverId = '1322357533637218324';
   setInterval(async () => {
     const channel = client.channels.cache.get(channelId_partnerstwa);
     if (channel) {
