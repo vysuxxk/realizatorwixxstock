@@ -38,6 +38,7 @@ const serverAd = `
 ✔ Konta z **Lewiathan, Black Knight, Travis** i innymi OG skinami  
 ✔ **Świetne ceny** – bez przepłacania za hype  
 ✔ **Usługa Middleman i ochrona przed scamem** – kupujesz bez ryzyka  
+✔ **Nagrody za Ekonomie Serwerową** – darmowe produkty
 
 **🎁 NIE PRZEGAP SZANSY!**  
 🔗 **Dołącz już teraz:** https://discord.gg/3n5hRX6h9d
@@ -70,7 +71,7 @@ client.once('ready', () => {
   const channelId_programming = '1346609275761332325';
   const channelId_global = '1348329636056268911';
   const zimoweall = '1346609268375158834';
-  const zimowethematic = '1346609270933946490';
+  const zimowethematic = '1346609280291442708';
   const zimowetech = '1346609282174685264';
   const zimowe6h = '1346609312042324060';
   setInterval(async () => {
