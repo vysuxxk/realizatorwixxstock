@@ -25,28 +25,25 @@ client.once('ready', () => {
 
 // Reklama serwera
 const serverAd = `
-# 🚀 WIXXSTOCK – NAJWIĘKSZY SKLEP Z KONTAMI! 🚀
+# :fire: **WIXXSTOCK - Najbardziej OP shop na Discordzie!** :fire:  
+:gift: Dropy, konta, boosty i **MEGA giveaway** – to wszystko czeka na Ciebie!
 
-**🔥 LEGENDARNE SKINY • GWARANCJA BEZPIECZEŃSTWA • GIVEAWAY NA 1K MEMBERÓW! 🔥**  
+:gem: **W ofercie**:  
+:white_check_mark: Paczki **Minecraft** (paczki, serwery, gotowce)  
+:white_check_mark: Konta **Minecraft** & **Fortnite**  
+:white_check_mark: **Discord Boosts** & **Social Boosts**  
+:white_check_mark: **GENERATOR** kont – 24/7 dostęp  
+:white_check_mark: **Darmowe dropy** dla każdego  
+:white_check_mark: **Ekonomia** dla darmowych kont  
+:tada: **GIVEAWAY na 1000 osób** – zgarnij kozackie nagrody!
 
-**📌 DLACZEGO WARTO WBIĆ NA NASZ SERWER?**  
-✅ **SPORO LEGITCHECKÓW** – potwierdzone bezpieczne transakcje  
-✅ **800+ ZADOWOLONYCH GRACZY** – dołącz do społeczności, która nam ufa!  
-✅ **GIVEAWAY NA 1000 OSÓB!** – wygrywasz **MOCNE KONTO FA** z rzadkimi skinami!  
+:rocket: Dołącz do elity – WIXXSTOCK to nie kolejny shop, to **kompletna maszyna do zysku** :moneybag:
 
-**💎 OFERUJEMY:**  
-✔ Konta z **Lewiathan, Black Knight, Travis** i innymi OG skinami  
-✔ **Świetne ceny** – bez przepłacania za hype  
-✔ **Usługa Middleman i ochrona przed scamem** – kupujesz bez ryzyka  
-✔ **Nagrody za Ekonomie Serwerową** – darmowe produkty
+:calling: Wbij teraz: https://discord.gg/tjvFqecYj2
 
-**🎁 NIE PRZEGAP SZANSY!**  
-🔗 **Dołącz już teraz:** https://discord.gg/3n5hRX6h9d
+https://cdn.discordapp.com/attachments/1322357534060974254/1356161562150309938/standard-1.gif?ex=67fffea0&is=67fead20&hm=ffeb116008cc6845b39400910247324b654a1b2d15359344765cea40ef5fc86c&
 
-**💬 Masz pytania?** Pisz do adminów – pomożemy!  
-**Nie czekaj – OG skiny mogą być Twoje!** ⚡  
-
-#Fortnite #OGSkins #Giveaway #DiscordShop #BezScamu
+Nie czekaj. U nas konto czeka na Ciebie, nie Ty na konto.
 `;
 
 // Lista użytkowników partnerstwa i ich czas ostatniego partnerstwa
