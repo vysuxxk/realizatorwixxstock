@@ -64,7 +64,7 @@ client.once('ready', () => {
     } else {
       console.error(`Nie znaleziono kanału o ID ${channelId_partnerstwa}`);
     }
-  }, 6 * 60 * 1000); // 6 minut w milisekundach
+  }, 5.5 * 60 * 1000); // 6 minut w milisekundach
 
   // reklamowanie serwera
   const channelId_programming = '1346609275761332325';
