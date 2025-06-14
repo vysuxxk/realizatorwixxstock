@@ -25,25 +25,29 @@ client.once('ready', () => {
 
 // Reklama serwera
 const serverAd = `
-# :fire: **WIXXSTOCK - Najbardziej OP shop na Discordzie!** :fire:  
-:gift: Dropy, konta, boosty i **MEGA giveaway** – to wszystko czeka na Ciebie!
+# 🎉 Witamy na serwerze FSQQLI ST0CK! 🎉
 
-:gem: **W ofercie**:  
-:white_check_mark: Paczki **Minecraft** (paczki, serwery, gotowce)  
-:white_check_mark: Konta **Minecraft** & **Fortnite**  
-:white_check_mark: **Discord Boosts** & **Social Boosts**  
-:white_check_mark: **GENERATOR** kont – 24/7 dostęp  
-:white_check_mark: **Darmowe dropy** dla każdego  
-:white_check_mark: **Ekonomia** dla darmowych kont  
-:tada: **GIVEAWAY na 1000 osób** – zgarnij kozackie nagrody!
+Cieszymy się, że do nas dołączyłeś/aś! 💥
+Tutaj znajdziesz wszystko, czego potrzebujesz w świecie cyfrowym — szybko, tanio i bezpiecznie.
 
-:rocket: Dołącz do elity – WIXXSTOCK to nie kolejny shop, to **kompletna maszyna do zysku** :moneybag:
+🛒 Co u nas kupisz?
+🎮 Konta do najpopularniejszych gier:
+• Fortnite, Valorant, Supercell, Steam, Minecraft
+🎧 Serwisy premium:
+• Spotify, Netflix, Discord, Facebook i inne!
+💸 Waluty do gier:
+• Robuxy, V-Dolce i inne gamingowe skarby!
 
-:calling: Wbij teraz: https://discord.gg/tjvFqecYj2
+💬 Masz pytania? Napisz do administracji — jesteśmy tu, żeby pomóc!
+📢 Obserwuj ogłoszenia, bierz udział w promocjach i nie przegap żadnej okazji!
 
-https://cdn.discordapp.com/attachments/1322357534060974254/1356161562150309938/standard-1.gif?ex=67fffea0&is=67fead20&hm=ffeb116008cc6845b39400910247324b654a1b2d15359344765cea40ef5fc86c&
+🔐 Z nami zyskujesz jakość, zaufanie i najlepsze ceny na rynku!
 
-Nie czekaj. U nas konto czeka na Ciebie, nie Ty na konto.
+Dołącz do naszej społeczności i rozkręć swój cyfrowy świat! 🚀
+
+discord.gg/a77uMbSBmD
+
+## RESTOCK WSZYSTKIEGO NA 20 OSÓB
 `;
 
 // Lista użytkowników partnerstwa i ich czas ostatniego partnerstwa
@@ -58,7 +62,7 @@ client.once('ready', () => {
   setInterval(async () => {
     const channel = client.channels.cache.get(channelId_partnerstwa);
     if (channel) {
-      await channel.send('# PARTNERSTWA PV - Serwer 800osób Fortnite Stock');
+      await channel.send('# PARTNERSTWA PV - Shop Discord');
     } else {
       console.error(`Nie znaleziono kanału o ID ${channelId_partnerstwa}`);
     }
